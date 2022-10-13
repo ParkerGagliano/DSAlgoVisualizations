@@ -15,25 +15,29 @@
     <title>Queue</title>
   </head>
   <body>
-    <div class="container-lg">
+    <div class="container-lg mt-2 mb-4">
       <div class="row">
         <div class="col"><h1 class="text-center">Queue</h1></div>
       </div>
 
+      <div class="mb-5"></div>
+
       <div class="row">
         <div class="container-lg">
-          <div id="qcontainer" class="row justify-content-center">
-            <div class="col border"><h4 class="text-center">Empty</h4></div>
+          <div id="qcontainer" class="row">
+            <div class="col-1"><h5>Remove</h5></div>
+            <div class="col-1"><h5>Insert</h5></div>
           </div>
         </div>
       </div>
+      <div class="mb-5"></div>
 
       <div class="row justify-content-center">
         <div class="col-auto">
-          <button class="button" id="enq">Enqueue</button>
+          <button class="btn btn-success" id="enq">Enqueue</button>
         </div>
         <div class="col-auto">
-          <button class="button" id="removeq">Dequeueu</button>
+          <button class="btn btn-danger" id="removeq">Dequeueu</button>
         </div>
       </div>
     </div>

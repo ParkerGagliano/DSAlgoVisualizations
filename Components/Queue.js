@@ -7,6 +7,7 @@ export default class Queue {
     enqueue(element) {
       this.elements[this.tail] = element;
       this.tail++;
+
     }
     dequeue() {
       const item = this.elements[this.head];

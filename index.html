@@ -15,10 +15,27 @@
     <title>Queue</title>
   </head>
   <body>
-    <button class="button" id="createq">joe</button>
-
     <div class="container-lg">
-      <div id="qcontainer" class="row justify-content-center"></div>
+      <div class="row">
+        <div class="col"><h1 class="text-center">Queue</h1></div>
+      </div>
+
+      <div class="row">
+        <div class="container-lg">
+          <div id="qcontainer" class="row justify-content-center">
+            <div class="col border"><h4 class="text-center">Empty</h4></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <button class="button" id="enq">Enqueue</button>
+        </div>
+        <div class="col-auto">
+          <button class="button" id="removeq">Dequeueu</button>
+        </div>
+      </div>
     </div>
 
     <script

@@ -22,7 +22,7 @@ class QueueSite{
     }
     render(){
         container.innerHTML = ''
-        let temparr = [10,2,3,41,41,22,2,1,321]
+        let temparr = this.queue.fullArray;
         for (let i = 0; i < temparr.length; i++) {
             let col = document.createElement('div');
             col.className = 'col border';
@@ -35,9 +35,19 @@ class QueueSite{
     }
 }
 
-const queueSite = new QueueSite();
+let queueSite = new QueueSite();
+
 queueSite.createQueue();
-let addElementButton = document.getElementById('createq');
+let addElementButton = document.getElementById('enq');
+let removeElementButton = document.getElementById('removeq');
 addElementButton.addEventListener('click', () => {
-    queueSite.controlQueue('enqueue', 4);
+    if (queueSite.queue.fullArray.length < 10) {
+        queueSite.controlQueue('enqueue', Math.floor(Math.random() * 100));
+    }
+    else {
+        alert('Queue is full');
+    }
+});
+removeElementButton.addEventListener('click', () => {
+    queueSite.controlQueue('dequeue');
 });

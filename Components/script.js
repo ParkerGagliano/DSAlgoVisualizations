@@ -2,11 +2,14 @@ import Queue from './Queue.js';
 let container = document.getElementById('qcontainer');
 let leftarrow = document.createElement('div')
 let rightarrow = document.createElement('div')
+let mainarrcontainer = document.getElementById('mainarr')
 
 
 class QueueSite{
     constructor(){  
         this.queue = null;
+        this.arr = Array.from({length: 10}, () => Math.floor(Math.random() * 100));
+        this.mainArrRender()
     }
     createQueue(){
         this.queue = new Queue();
@@ -32,17 +35,18 @@ class QueueSite{
     createEL(name, attr, intext) {  // Element maker 
         let temp = document.createElement(name)
         if (attr) {
-            temp.classList.add(attr)
+            for (let i = 0; i < attr.length; i++){
+                temp.classList.add(attr[i])
+            }
         }
         if (intext) {
             temp.innerText=intext
         }
         return temp
-       
-
     }
 
     render(){
+        this.mainArrRender()
         container.innerHTML = ''
         leftarrow.innerHTML = ''
         rightarrow.innerHTML = ''
@@ -67,12 +71,24 @@ class QueueSite{
           }
         container.appendChild(rightarrow)
     }
+
+
+    mainArrRender() {
+        mainarrcontainer.innerHTML = ''
+        for (let i = 0; i < this.arr.length; i++) {
+            let nums = this.createEL('h5', ['text-center'], this.arr[i])
+            let ele = this.createEL('div', ['col-1', 'border'], null)
+            ele.appendChild(nums)
+            mainarrcontainer.appendChild(ele)
+        }
+    }
+
     eventListenerButton(){
         let addElementButton = document.getElementById('enq');
         let removeElementButton = document.getElementById('removeq')
         addElementButton.addEventListener('click', () => {
             if (queueSite.queue.fullArray.length < 10) {
-                queueSite.controlQueue('enqueue', Math.floor(Math.random() * 1000));
+                queueSite.controlQueue('enqueue', this.arr[Math.floor(Math.random()*this.arr.length)]);
             }
             else {
                 alert('Queue is full');
@@ -84,13 +100,10 @@ class QueueSite{
     }
 
     flashColor(item, color) {
-        console.log('int')
         item.classList.add(`bg-${color}`);
         setTimeout(() => {
             item.classList.remove(`bg-${color}`)
           }, 150)
-        console.log('a')
-
     }
 }
 

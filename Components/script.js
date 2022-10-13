@@ -3,17 +3,18 @@ let container = document.getElementById('qcontainer');
 let leftarrow = document.createElement('div')
 let rightarrow = document.createElement('div')
 let mainarrcontainer = document.getElementById('mainarr')
+let randomIndex = []
 
 
 class QueueSite{
     constructor(){  
         this.queue = null;
-        this.arr = Array.from({length: 10}, () => Math.floor(Math.random() * 100));
+        //this.arr = Array.from({length: 10}, () => Math.floor(Math.random() * 100));
+        this.arr = [1,2,3,4,5,6,7,8,9,10]
         this.mainArrRender()
     }
     createQueue(){
         this.queue = new Queue();
-        console.log(this.queue);
     }
 
     controlQueue(command, value){
@@ -88,14 +89,23 @@ class QueueSite{
         let removeElementButton = document.getElementById('removeq')
         addElementButton.addEventListener('click', () => {
             if (queueSite.queue.fullArray.length < 10) {
-                queueSite.controlQueue('enqueue', this.arr[Math.floor(Math.random()*this.arr.length)]);
+                let temp = this.arr.pop()
+                //randomIndex.push(this.arr.splice(Math.floor(Math.random()*this.arr.length)))
+                randomIndex.push(temp)
+                queueSite.controlQueue('enqueue', temp);
             }
             else {
                 alert('Queue is full');
             }
         });
         removeElementButton.addEventListener('click', () => {
-            queueSite.controlQueue('dequeue');
+            if (queueSite.queue.fullArray.length >=1) {
+                this.arr.push(randomIndex.shift(randomIndex.length))
+                queueSite.controlQueue('dequeue');
+            }
+            else {
+                alert('Queue is empty')
+            }
         });
     }
 

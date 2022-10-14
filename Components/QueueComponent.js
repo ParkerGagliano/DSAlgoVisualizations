@@ -1,14 +1,15 @@
 import Queue from './Queue.js';
+import DomControl from './DomControl.js'
 let container = document.getElementById('qcontainer');
 let leftarrow = document.createElement('div')
 let rightarrow = document.createElement('div')
 let mainarrcontainer = document.getElementById('mainarr')
 let randomIndex = []
-
+let domControl = new DomControl()
 
 export default class QueueSite{
     constructor(){  
-        this.queue = null;
+        this.queue = new Queue();
         //this.arr = Array.from({length: 10}, () => Math.floor(Math.random() * 100));
         this.arr = [1,2,3,4,5,6,7,8,9,10]
         this.mainArrRender()
@@ -26,43 +27,24 @@ export default class QueueSite{
         }
         this.render();
         if (command === 'enqueue') {
-            this.flashColor(rightarrow, 'primary');
-            this.flashColor(insdel, 'danger')
+            domControl.flashColor(rightarrow, 'primary');
+            domControl.flashColor(insdel, 'danger')
         }
         else {
-            this.flashColor(leftarrow, 'danger');
-            this.flashColor(insdel, 'primary')
+            domControl.flashColor(leftarrow, 'danger');
+            domControl.flashColor(insdel, 'primary')
         }
-    }
-
-    createEL(name, attr, intext) {  // Element maker 
-        let temp = document.createElement(name)
-        if (attr) {
-            for (let i = 0; i < attr.length; i++){
-                temp.classList.add(attr[i])
-            }
-        }
-        if (intext) {
-            temp.innerText=intext
-        }
-        return temp
-    }
-
-
-    clearHTML(elements) {
-        for (let i = 0; i < elements.length; i++)
-            elements[i].innerHTML = ''
     }
 
     render(){
         this.mainArrRender()
-        this.clearHTML([container, leftarrow, rightarrow])
+        domControl.clearHTML([container, leftarrow, rightarrow])
         leftarrow.classList.add('col-1')
-        let del = this.createEL('h5', null, 'Del')
+        let del = domControl.createEL('h5', null, 'Del')
         leftarrow.appendChild(del)
         container.appendChild(leftarrow)
         rightarrow.classList.add('col-1')
-        let insert = this.createEL('h5', null, 'Insert')
+        let insert = domControl.createEL('h5', null, 'Insert')
         rightarrow.appendChild(insert)
         let temparr = this.queue.fullArray;
         for (let i = 0; i < temparr.length; i++) {
@@ -73,7 +55,7 @@ export default class QueueSite{
             }
             col.className = `col-1 border bg-${color}`;
             //col.className = `col-1 btn btn-primary`
-            let value = this.createEL('h5', 'text-center', temparr[i])
+            let value = domControl.createEL('h5', 'text-center', temparr[i])
             col.appendChild(value)
             container.appendChild(col);
           }
@@ -84,14 +66,14 @@ export default class QueueSite{
     mainArrRender() {
         mainarrcontainer.innerHTML = ''
         for (let i = 0; i < this.arr.length; i++) {
-            let nums = this.createEL('h5', ['text-center'], this.arr[i])
-            let ele = this.createEL('div', ['col-1', 'border', 'rounded'], null)
+            let nums = domControl.createEL('h5', ['text-center'], this.arr[i])
+            let ele = domControl.createEL('div', ['col-1', 'border', 'rounded'], null)
             ele.appendChild(nums)
             mainarrcontainer.appendChild(ele)
         }
-        let insdel = this.createEL('div', ['col-1', 'border'], null)
+        let insdel = domControl.createEL('div', ['col-1', 'border'], null)
         insdel.setAttribute('id', 'insdel')
-        let insdeltext = this.createEL('h5', ['text-center'],'Ins/Del')
+        let insdeltext = domControl.createEL('h5', ['text-center'],'Ins/Del')
         insdel.appendChild(insdeltext)
         mainarrcontainer.appendChild(insdel)
     }
@@ -121,11 +103,6 @@ export default class QueueSite{
         });
     }
 
-    flashColor(item, color) {
-        item.classList.add(`bg-${color}`);
-        setTimeout(() => {
-            item.classList.remove(`bg-${color}`)
-          }, 150)
-    }
+    
 }
 
